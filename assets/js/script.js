@@ -81,6 +81,7 @@ const storeInput = function (event) {
       hour: hour,
       appointment: appointment,
     };
+
     // get from LS before inserting object
     const savedInput = getFromLocalStorage("userInput", []);
     // insert the value object
@@ -99,6 +100,9 @@ const initialLocalStorage = function () {
   }
 };
 
+
+};
+
 // sets current day and time on header
 const currentDayTime = $("#currentDay");
 const onReady = function () {
@@ -110,23 +114,22 @@ const onReady = function () {
   };
   const timer = setInterval(timerTick, 1000);
   initialLocalStorage();
-  constructCurrentDay();
+  constructCurrentHour();
+  textArea();
 };
 
 // render each hour slots
-const renderCurrentDay = function () {};
+const renderCurrentHour = function () {};
 
 // create each hour slots
-const constructCurrentDay = function () {
+const constructCurrentHour = function () {
   const callback = function (element) {
-    console.log(element);
     const hourSchedule = `<div class="row" id=${element.key}>
-        <div class="time">${element.label}</div>
+        <div class=" col time">${element.label}</div>
        
-          <textarea class=" activity text-area" id=${element.key} rows=""></textarea>
-     
+          <textarea class="col activity text-area" id=${element.key} rows=""></textarea>
         
-          <button class="save btn btn-outline-info" data-time=${element.key}>button</button>
+          <button class=" col save btn btn-outline-info" data-time=${element.key}>button</button>
         
         </div>`;
 
