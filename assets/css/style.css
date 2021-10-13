@@ -72,6 +72,7 @@ textarea {
   flex-wrap: wrap;
   background-color: #9cb7ee;
   border-radius: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .activity {

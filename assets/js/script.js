@@ -58,6 +58,47 @@ const onSave = function () {
   // take text and key for time and write to LS
 };
 
+const getFromLocalStorage = function (key, defaultValue) {
+  const localStorageData = JSON.parse(localStorage.getItem(key));
+
+  if (!localStorageData) {
+    return defaultValue;
+  } else {
+    return localStorageData;
+  }
+};
+
+const storeInput = function (event) {
+  if ($(event.target).is(":button")) {
+    const button = event.target;
+    //   hour
+    const hour = $(button).data("time");
+
+    // get user input
+    const appointment = $(button).prev().val();
+
+    const userInput = {
+      hour: hour,
+      appointment: appointment,
+    };
+    // get from LS before inserting object
+    const savedInput = getFromLocalStorage("userInput", []);
+    // insert the value object
+    savedInput.push(userInput);
+
+    // write back to LS
+    localStorage.setItem("userInput", JSON.stringify(savedInput));
+  }
+};
+
+const initialLocalStorage = function () {
+  const dataFromLS = JSON.parse(localStorage.getItem("userInput"));
+
+  if (!dataFromLS) {
+    localStorage.setItem("userInput", JSON.stringify([]));
+  }
+};
+
 // sets current day and time on header
 const currentDayTime = $("#currentDay");
 const onReady = function () {
@@ -68,6 +109,8 @@ const onReady = function () {
     currentDayTime.text(dateTimeFormat);
   };
   const timer = setInterval(timerTick, 1000);
+  initialLocalStorage();
+  constructCurrentDay();
 };
 
 // render each hour slots
@@ -77,19 +120,20 @@ const renderCurrentDay = function () {};
 const constructCurrentDay = function () {
   const callback = function (element) {
     console.log(element);
-    const hourSchedule = `
+    const hourSchedule = `<div class="row" id=${element.key}>
         <div class="time">${element.label}</div>
-        <div class="activity">
-          <textarea class="text-area" id="" rows=""></textarea>
-        </div>
-        <div class="save">
-          <button class="btn btn-outline-info">button</button>
+       
+          <textarea class=" activity text-area" id=${element.key} rows=""></textarea>
+     
+        
+          <button class="save btn btn-outline-info" data-time=${element.key}>button</button>
+        
         </div>`;
 
     $(".container").append(hourSchedule);
   };
+  $(".container").click(storeInput);
   return timeBlockArray.map(callback);
 };
-console.log(constructCurrentDay());
 
 $(document).ready(onReady);
