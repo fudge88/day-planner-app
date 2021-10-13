@@ -74,21 +74,22 @@ const onReady = function () {
 const renderCurrentDay = function () {};
 
 // create each hour slots
-const constructCurrentDay = function (label) {
+const constructCurrentDay = function () {
   const callback = function (element) {
-    const hourSchedule = `<div class="container align-items-center mx-6">
-        <div class="time">${hr.text}</div>
+    console.log(element);
+    const hourSchedule = `
+        <div class="time">${element.label}</div>
         <div class="activity">
           <textarea class="text-area" id="" rows=""></textarea>
         </div>
         <div class="save">
           <button class="btn btn-outline-info">button</button>
-        </div>
-      </div>`;
-    return hourSchedule;
+        </div>`;
+
+    $(".container").append(hourSchedule);
   };
-  return label.map(callback);
+  return timeBlockArray.map(callback);
 };
-console.log(constructCurrentDay);
+console.log(constructCurrentDay());
 
 $(document).ready(onReady);
