@@ -11,6 +11,7 @@ textarea {
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+  width: 100%;
 }
 
 .jumbotron {
@@ -72,5 +73,29 @@ textarea {
 
 .container {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   border: #ff6961 solid 2px;
+}
+
+.activity {
+  flex: 4;
+  border: springgreen solid 2px;
+}
+
+.time {
+  flex: 1;
+
+  border: blueviolet solid 2px;
+}
+
+.save {
+  flex: 1;
+  border: pink solid 2px;
+}
+
+@media (max-width: 575.98px) {
+  .container {
+    flex-direction: column;
+  }
 }
