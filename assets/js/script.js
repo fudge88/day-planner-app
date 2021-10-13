@@ -37,6 +37,7 @@ const timeBlockArray = [
   },
 ];
 
+const currentTime = { text: moment().format("h:00 A"), hour: moment().hour() };
 // onLoad
 
 // get current day
@@ -57,6 +58,7 @@ const onSave = function () {
   // take text and key for time and write to LS
 };
 
+// sets current day and time on header
 const currentDayTime = $("#currentDay");
 const onReady = function () {
   const timerTick = function () {
@@ -67,5 +69,26 @@ const onReady = function () {
   };
   const timer = setInterval(timerTick, 1000);
 };
+
+// render each hour slots
+const renderCurrentDay = function () {};
+
+// create each hour slots
+const constructCurrentDay = function (label) {
+  const callback = function (element) {
+    const hourSchedule = `<div class="container align-items-center mx-6">
+        <div class="time">${hr.text}</div>
+        <div class="activity">
+          <textarea class="text-area" id="" rows=""></textarea>
+        </div>
+        <div class="save">
+          <button class="btn btn-outline-info">button</button>
+        </div>
+      </div>`;
+    return hourSchedule;
+  };
+  return label.map(callback);
+};
+console.log(constructCurrentDay);
 
 $(document).ready(onReady);
