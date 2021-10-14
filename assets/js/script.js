@@ -77,30 +77,27 @@ const storeInput = function (event) {
     // get user input
     const appointment = $(button).prev().val();
 
-    const userInput = {
+    const schedule = {
       hour: hour,
       appointment: appointment,
     };
 
     // get from LS before inserting object
-    const savedInput = getFromLocalStorage("userInput", []);
+    const savedInput = getFromLocalStorage("appointments", []);
     // insert the value object
-    savedInput.push(userInput);
+    savedInput.push(schedule);
 
     // write back to LS
-    localStorage.setItem("userInput", JSON.stringify(savedInput));
+    localStorage.setItem("appointments", JSON.stringify(savedInput));
   }
 };
 
 const initialLocalStorage = function () {
-  const dataFromLS = JSON.parse(localStorage.getItem("userInput"));
+  const dataFromLS = getFromLocalStorage("appointments", []);
 
   if (!dataFromLS) {
-    localStorage.setItem("userInput", JSON.stringify([]));
+    localStorage.setItem("appointments", JSON.stringify([]));
   }
-};
-
-
 };
 
 // sets current day and time on header
@@ -115,19 +112,32 @@ const onReady = function () {
   const timer = setInterval(timerTick, 1000);
   initialLocalStorage();
   constructCurrentHour();
-  textArea();
+  renderCurrentHourValue();
 };
 
 // render each hour slots
-const renderCurrentHour = function () {};
+const renderCurrentHourValue = function (hour) {
+  const appointments = getFromLocalStorage("appointments", []);
+  const currentHourAppointment = appointments.find(
+    (appointment) => appointment.hour == hour
+  );
+
+  if (currentHourAppointment === undefined) {
+    return "";
+  } else {
+    return currentHourAppointment;
+  }
+};
 
 // create each hour slots
 const constructCurrentHour = function () {
   const callback = function (element) {
+    const appointmentValue = renderCurrentHourValue(element.key);
+    console.log(appointmentValue?.appointment);
     const hourSchedule = `<div class="row" id=${element.key}>
         <div class=" col time">${element.label}</div>
        
-          <textarea class="col activity text-area" id=${element.key} rows=""></textarea>
+          <textarea class="col activity text-area" value=${appointmentValue?.appointment} id=${element.key} rows="">${appointmentValue?.appointment}</textarea>
         
           <button class=" col save btn btn-outline-info" data-time=${element.key}>button</button>
         
