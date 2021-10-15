@@ -50,12 +50,19 @@ const currentTime = { text: moment().format("h:00 A"), hour: moment().hour() };
 // if undefined - theres no value
 // if present- true- class red
 // if future - true -class green
-
-const onSave = function () {
-  // get time block btn was clicked
-  // event delegation (target)
-  // get text from text area .value
-  // take text and key for time and write to LS
+const colourCodingHours = function (element) {
+  const hour = $(hour);
+  // const hour = element.key;
+  if (currentTime.hour() < hour) {
+    // future
+    console.log("yellow");
+  } else if (currentTime.hour() == hour) {
+    // present
+    console.log("green");
+  } else {
+    // past
+    console.log("grey");
+  }
 };
 
 const getFromLocalStorage = function (key, defaultValue) {
@@ -113,6 +120,7 @@ const onReady = function () {
   initialLocalStorage();
   constructCurrentHour();
   renderCurrentHourValue();
+  colourCodingHours();
 };
 
 // render each hour slots
@@ -122,24 +130,23 @@ const renderCurrentHourValue = function (hour) {
     (appointment) => appointment.hour == hour
   );
 
-  if (currentHourAppointment === undefined) {
-    return "";
-  } else {
-    return currentHourAppointment;
-  }
+  return currentHourAppointment;
 };
 
 // create each hour slots
 const constructCurrentHour = function () {
   const callback = function (element) {
-    const appointmentValue = renderCurrentHourValue(element.key);
-    console.log(appointmentValue?.appointment);
-    const hourSchedule = `<div class="row" id=${element.key}>
-        <div class=" col time">${element.label}</div>
+    const hour = element.key;
+    const label = element.label;
+    const appointmentValue = renderCurrentHourValue(hour);
+    const hourSchedule = `<div class="row" id=${hour}>
+        <div class=" col time">${label}</div>
        
-          <textarea class="col activity text-area" value=${appointmentValue?.appointment} id=${element.key} rows="">${appointmentValue?.appointment}</textarea>
+          <textarea class="col activity text-area" value=${
+            appointmentValue?.appointment || ""
+          } id=${hour} rows="">${appointmentValue?.appointment || ""}</textarea>
         
-          <button class=" col save btn btn-outline-info" data-time=${element.key}>button</button>
+          <button class=" col save btn btn-outline-info" data-time=${hour}>button</button>
         
         </div>`;
 
