@@ -8,7 +8,7 @@ A fully responsive, Day Planner.
 
 This planner is dynamically created using JQuery, and also runs on Live time. The purpose of this app is to store notes and appointments in Local Storage, against the hour of the appointment. This app is made accessible by colour coding the past, present and future using hours.
 
-![portfolio demo]()
+![portfolio demo](./assets/images/app.gif)
 
 ## User Story
 
