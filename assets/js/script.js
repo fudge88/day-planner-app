@@ -35,36 +35,9 @@ const timeBlockArray = [
     label: "17",
     key: 17,
   },
-  {
-    label: "18",
-    key: 18,
-  },
-  {
-    label: "19",
-    key: 19,
-  },
-  {
-    label: "20",
-    key: 20,
-  },
-  {
-    label: "21",
-    key: 21,
-  },
-  {
-    label: "22",
-    key: 22,
-  },
-  {
-    label: "23",
-    key: 23,
-  },
-  {
-    label: "24",
-    key: 24,
-  },
 ];
 
+// local storage
 const getFromLocalStorage = function (key, defaultValue) {
   const localStorageData = JSON.parse(localStorage.getItem(key));
 
@@ -75,30 +48,23 @@ const getFromLocalStorage = function (key, defaultValue) {
   }
 };
 
+// storing the value the user keys into the textarea against the hour in the LS
 const storeInput = function (event) {
   if ($(event.target).is(":button")) {
     const button = event.target;
-    //   hour
     const hour = $(button).data("time");
-
-    // get user input
     const appointment = $(button).prev().val();
-
     const schedule = {
       hour: hour,
       appointment: appointment,
     };
-
-    // get from LS before inserting object
     const savedInput = getFromLocalStorage("appointments", []);
-    // insert the value object
     savedInput.push(schedule);
-
-    // write back to LS
     localStorage.setItem("appointments", JSON.stringify(savedInput));
   }
 };
 
+// colour coding current past and present hour using moment JS
 const colourCodingHours = function (hour) {
   const currentTime = moment().hour();
   if (currentTime > hour) {
@@ -110,6 +76,7 @@ const colourCodingHours = function (hour) {
   }
 };
 
+// initializing LS
 const initialLocalStorage = function () {
   const dataFromLS = getFromLocalStorage("appointments", []);
 
@@ -124,7 +91,6 @@ const onReady = function () {
   const timerTick = function () {
     const dateTime = moment();
     const dateTimeFormat = dateTime.format("dddd DD MMMM, YYYY kk:mm");
-
     currentDayTime.text(dateTimeFormat);
   };
   const timer = setInterval(timerTick, 1000);
@@ -134,35 +100,29 @@ const onReady = function () {
   colourCodingHours();
 };
 
-// render each hour slots
+// render each hour slots with value against the correct hour
 const renderCurrentHourValue = function (hour) {
   const appointments = getFromLocalStorage("appointments", []);
   const currentHourAppointment = appointments.find(
     (appointment) => appointment.hour == hour
   );
-
   return currentHourAppointment;
 };
 
-// create each hour slots
+// create each hour slots on a loop for every object in teh array
 const constructCurrentHour = function () {
   const callback = function (element) {
     const hour = element.key;
     const label = element.label;
     const appointmentValue = renderCurrentHourValue(hour);
     const renderColours = colourCodingHours(hour);
-    console.log(renderColours);
     const hourSchedule = `<div class="row" id=${hour}>
         <div class=" col time">${label}:00</div>
-       
         <textarea class="col activity text-area ${renderColours}" value="${
       appointmentValue?.appointment || ""
     }" id="${hour}" rows="">${appointmentValue?.appointment || ""}</textarea>
-        
           <button class=" col save" data-time=${hour}>Save</button>
-        
         </div>`;
-
     $(".container").append(hourSchedule);
   };
   $(".container").click(storeInput);

@@ -68,6 +68,8 @@ textarea {
   border-radius: 0 25px 25px 0;
   border-color: white;
   font-family: "Abril Fatface", cursive;
+  flex: 1;
+  text-align: center;
 }
 
 .saveBtn i:hover {
@@ -80,6 +82,7 @@ textarea {
   margin-bottom: 1rem;
 }
 
+/* text area */
 .activity {
   flex: 4;
 }
@@ -90,6 +93,7 @@ textarea {
   border-radius: 0.25rem;
 }
 
+/* hour slots  */
 .time {
   font-family: "Abril Fatface", cursive;
   background-color: var(--lavender);
@@ -98,11 +102,7 @@ textarea {
   padding-top: 1.2rem;
 }
 
-.save {
-  flex: 1;
-  text-align: center;
-}
-
+/* media query - small screens */
 @media (max-width: 575.98px) {
   .container {
     flex-direction: column;
