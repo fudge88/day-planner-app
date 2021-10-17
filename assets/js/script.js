@@ -37,34 +37,6 @@ const timeBlockArray = [
   },
 ];
 
-const currentTime = { text: moment().format("h:00 A"), hour: moment().hour() };
-// onLoad
-
-// get current day
-
-// render current day
-
-// render time-blocks using map (construct time block)or a for each
-
-// get text from object
-// if undefined - theres no value
-// if present- true- class red
-// if future - true -class green
-const colourCodingHours = function (element) {
-  const hour = $(hour);
-  // const hour = element.key;
-  if (currentTime.hour() < hour) {
-    // future
-    console.log("yellow");
-  } else if (currentTime.hour() == hour) {
-    // present
-    console.log("green");
-  } else {
-    // past
-    console.log("grey");
-  }
-};
-
 const getFromLocalStorage = function (key, defaultValue) {
   const localStorageData = JSON.parse(localStorage.getItem(key));
 
@@ -96,6 +68,28 @@ const storeInput = function (event) {
 
     // write back to LS
     localStorage.setItem("appointments", JSON.stringify(savedInput));
+  }
+};
+
+const colourCodingHours = function () {
+  const currentTime = {
+    text: moment().format("h:00 A"),
+    hour: moment().hour(),
+  };
+  console.log(currentTime.hour);
+
+  hourKey = Object.keys(timeBlockArray);
+  console.log(hourKey);
+
+  if (currentTime.hour < hour) {
+    // future
+    console.log("yellow");
+  } else if (currentTime.hour == hour) {
+    // present
+    console.log("green");
+  } else {
+    // past
+    console.log("grey");
   }
 };
 
