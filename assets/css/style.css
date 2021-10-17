@@ -1,7 +1,25 @@
+:root {
+  --grey: #8e9aafff;
+  --lilac: #cbc0d3ff;
+  --pink: #efd3d7ff;
+  --dusky: #feeafaff;
+  --lavender: #dee2ffff;
+  --back: #feeafac9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   line-height: 1;
+}
+h1,
+h2,
+h3 {
+  font-family: "Abril Fatface", cursive;
 }
 
 textarea {
@@ -16,10 +34,10 @@ textarea {
 
 .jumbotron {
   text-align: center;
-  background-color: transparent;
+  background-color: var(--lilac);
   color: black;
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: 2px solid var(--grey);
 }
 
 .description {
@@ -33,32 +51,27 @@ textarea {
 
 .row {
   white-space: pre-wrap;
-  height: 80px;
+  height: 60px;
   border-top: 1px solid white;
 }
 
-.hour {
-  background-color: #ffffff;
-  color: #000000;
-  border-top: 1px dashed #000000;
-}
-
 .past {
-  color: #0c5460;
-  background-color: #d1ecf1;
-  border-color: #bee5eb;
+  background-color: var(--grey);
 }
 
 .present {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
+  background-color: var(--lilac);
 }
 
 .future {
-  color: #856404;
-  background-color: #fff3cd;
-  border-color: #ffeeba;
+  background-color: var(--pink);
+}
+
+.save {
+  background-color: var(--lavender);
+  border-radius: 0 25px 25px 0;
+  border-color: white;
+  font-family: "Abril Fatface", cursive;
 }
 
 .saveBtn i:hover {
@@ -67,7 +80,6 @@ textarea {
 }
 
 .container {
-  background-color: #9cb7ee;
   border-radius: 0.25rem;
   margin-bottom: 1rem;
 }
@@ -83,8 +95,11 @@ textarea {
 }
 
 .time {
+  font-family: "Abril Fatface", cursive;
+  background-color: var(--lavender);
+  border-radius: 25px 0 0 25px;
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 1.2rem;
 }
 
 .save {

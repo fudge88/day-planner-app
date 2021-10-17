@@ -99,31 +99,15 @@ const storeInput = function (event) {
   }
 };
 
-const colourCodingHours = function () {
-  // set a variable for the current time using moment
+const colourCodingHours = function (hour) {
   const currentTime = moment().hour();
-
-  const renderColours = function () {
-    // you can use "this" to access each text area - console.log this to see what happens
-    const scheduleHour = this.id;
-
-    // console.log(scheduleHour);
-    if (scheduleHour == currentTime) {
-      console.log("current");
-      $("textarea").toggleClass("present");
-    } else if (scheduleHour < currentTime) {
-      console.log("past");
-      $("textarea").toggleClass("past");
-    } else {
-      console.log("future");
-      $("textarea").toggleClass("future");
-    }
-    // each text area should have an id which is equal to its time so you can use this.id to get the value
-    // set a variable for this.id and console log it
-    // then you need to check if the variable with this.id is equal to the current time
-  };
-
-  $(".text-area").each(renderColours);
+  if (currentTime > hour) {
+    return "past";
+  } else if (currentTime == hour) {
+    return "present";
+  } else {
+    return "future";
+  }
 };
 
 const initialLocalStorage = function () {
@@ -166,16 +150,16 @@ const constructCurrentHour = function () {
     const hour = element.key;
     const label = element.label;
     const appointmentValue = renderCurrentHourValue(hour);
+    const renderColours = colourCodingHours(hour);
+    console.log(renderColours);
     const hourSchedule = `<div class="row" id=${hour}>
         <div class=" col time">${label}:00</div>
        
-        <textarea class="col activity text-area" value="${
-          appointmentValue?.appointment || ""
-        }" id="${hour}" rows="">${
+        <textarea class="col activity text-area ${renderColours}" value="${
       appointmentValue?.appointment || ""
-    }</textarea>
+    }" id="${hour}" rows="">${appointmentValue?.appointment || ""}</textarea>
         
-          <button class=" col save btn btn-outline-info" data-time=${hour}>button</button>
+          <button class=" col save" data-time=${hour}>Save</button>
         
         </div>`;
 
