@@ -35,6 +35,34 @@ const timeBlockArray = [
     label: "17",
     key: 17,
   },
+  {
+    label: "18",
+    key: 18,
+  },
+  {
+    label: "19",
+    key: 19,
+  },
+  {
+    label: "20",
+    key: 20,
+  },
+  {
+    label: "21",
+    key: 21,
+  },
+  {
+    label: "22",
+    key: 22,
+  },
+  {
+    label: "23",
+    key: 23,
+  },
+  {
+    label: "24",
+    key: 24,
+  },
 ];
 
 const getFromLocalStorage = function (key, defaultValue) {
@@ -72,25 +100,30 @@ const storeInput = function (event) {
 };
 
 const colourCodingHours = function () {
-  const currentTime = {
-    text: moment().format("h:00 A"),
-    hour: moment().hour(),
+  // set a variable for the current time using moment
+  const currentTime = moment().hour();
+
+  const renderColours = function () {
+    // you can use "this" to access each text area - console.log this to see what happens
+    const scheduleHour = this.id;
+
+    // console.log(scheduleHour);
+    if (scheduleHour == currentTime) {
+      console.log("current");
+      $("textarea").toggleClass("present");
+    } else if (scheduleHour < currentTime) {
+      console.log("past");
+      $("textarea").toggleClass("past");
+    } else {
+      console.log("future");
+      $("textarea").toggleClass("future");
+    }
+    // each text area should have an id which is equal to its time so you can use this.id to get the value
+    // set a variable for this.id and console log it
+    // then you need to check if the variable with this.id is equal to the current time
   };
-  console.log(currentTime.hour);
 
-  hourKey = Object.keys(timeBlockArray);
-  console.log(hourKey);
-
-  if (currentTime.hour < hour) {
-    // future
-    console.log("yellow");
-  } else if (currentTime.hour == hour) {
-    // present
-    console.log("green");
-  } else {
-    // past
-    console.log("grey");
-  }
+  $(".text-area").each(renderColours);
 };
 
 const initialLocalStorage = function () {
@@ -134,11 +167,13 @@ const constructCurrentHour = function () {
     const label = element.label;
     const appointmentValue = renderCurrentHourValue(hour);
     const hourSchedule = `<div class="row" id=${hour}>
-        <div class=" col time">${label}</div>
+        <div class=" col time">${label}:00</div>
        
-          <textarea class="col activity text-area" value=${
-            appointmentValue?.appointment || ""
-          } id=${hour} rows="">${appointmentValue?.appointment || ""}</textarea>
+        <textarea class="col activity text-area" value="${
+          appointmentValue?.appointment || ""
+        }" id="${hour}" rows="">${
+      appointmentValue?.appointment || ""
+    }</textarea>
         
           <button class=" col save btn btn-outline-info" data-time=${hour}>button</button>
         
