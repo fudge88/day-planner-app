@@ -56,14 +56,12 @@ const storeInput = function (event) {
     const appointment = $(button).prev().val();
     const savedInput = getFromLocalStorage("appointments", {});
     savedInput[hour] = appointment;
-    console.log(savedInput);
     localStorage.setItem("appointments", JSON.stringify(savedInput));
   }
 };
 
 // colour coding current past and present hour using moment JS
 const colourCodingHours = function (hour) {
-  console.log(hour);
   const currentTime = moment().hour();
   if (currentTime > hour) {
     return "past";
@@ -85,6 +83,27 @@ const initialLocalStorage = function () {
 
 // sets current day and time on header
 const currentDayTime = $("#currentDay");
+
+// create each hour slots on a loop for every object to sit in its key pair
+const constructCurrentHour = function () {
+  const savedAppointments = getFromLocalStorage("appointments", {});
+  const callback = function (element) {
+    const hour = element.key;
+    const label = element.label;
+    const renderColours = colourCodingHours(hour);
+    const hourSchedule = `<div class="row" id=${hour}>
+    <div class=" col time">${label}:00</div>
+    <textarea class="col activity text-area ${renderColours}"
+    id="${hour}" rows="">${savedAppointments[hour] || ""}</textarea>
+    <button class=" col save" data-time=${hour}>Save</button>
+          </div>`;
+    $(".container").append(hourSchedule);
+  };
+  $(".container").click(storeInput);
+  return timeBlockArray.map(callback);
+};
+
+// first function to run
 const onReady = function () {
   const timerTick = function () {
     const dateTime = moment();
@@ -94,25 +113,6 @@ const onReady = function () {
   setInterval(timerTick, 1000);
   initialLocalStorage();
   constructCurrentHour();
-};
-
-// create each hour slots on a loop for every object in teh array
-const constructCurrentHour = function () {
-  const savedAppointments = getFromLocalStorage("appointments", {});
-  const callback = function (element) {
-    const hour = element.key;
-    const label = element.label;
-    const renderColours = colourCodingHours(hour);
-    const hourSchedule = `<div class="row" id=${hour}>
-          <div class=" col time">${label}:00</div>
-          <textarea class="col activity text-area ${renderColours}"
-          id="${hour}" rows="">${savedAppointments[hour] || ""}</textarea>
-            <button class=" col save" data-time=${hour}>Save</button>
-          </div>`;
-    $(".container").append(hourSchedule);
-  };
-  $(".container").click(storeInput);
-  return timeBlockArray.map(callback);
 };
 
 $(document).ready(onReady);
