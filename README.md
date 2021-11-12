@@ -60,3 +60,8 @@ JQuery's syntax is designed to make it easier to navigate a document, select DOM
 [Mozilla.org](https://developer.mozilla.org/en-US/docs/)
 
 [StackOverflow](https://stackoverflow.com/questions/)
+
+## License
+
+This project is licensed under the terms of the MIT license.
+
