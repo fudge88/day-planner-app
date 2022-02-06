@@ -1,4 +1,4 @@
-# True Crime Multiple Choice Quiz
+# Work Day Scheduler
 
 A fully responsive, Day Planner.
 
