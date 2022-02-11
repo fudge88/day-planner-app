@@ -1,0 +1,117 @@
+:root {
+  --grey: #8e9aafff;
+  --lilac: #cbc0d3ff;
+  --pink: #efd3d7ff;
+  --dusky: #feeafaff;
+  --lavender: #dee2ffff;
+  --back: #feeafac9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Abril Fatface", cursive;
+}
+
+textarea {
+  background: transparent;
+  border: none;
+  resize: none;
+  color: #000000;
+  border-left: 1px solid black;
+  padding: 10px;
+  width: 100%;
+}
+
+/* header styling */
+.jumbotron {
+  text-align: center;
+  background-color: var(--lilac);
+  color: black;
+  border-radius: 0;
+  border-bottom: 2px solid var(--grey);
+}
+
+/* time block row */
+.row {
+  white-space: pre-wrap;
+  height: 60px;
+  border-top: 1px solid white;
+}
+
+/* colour coding against time */
+.past {
+  background-color: var(--grey);
+}
+
+.present {
+  background-color: var(--lilac);
+}
+
+.future {
+  background-color: var(--pink);
+}
+
+/* save button */
+.save {
+  background-color: var(--lavender);
+  border-radius: 0 25px 25px 0;
+  border-color: white;
+  font-family: "Abril Fatface", cursive;
+  flex: 1;
+  text-align: center;
+}
+
+.saveBtn i:hover {
+  font-size: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.container {
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+/* text area */
+.activity {
+  flex: 4;
+}
+
+.text-area {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+/* hour slots  */
+.time {
+  font-family: "Abril Fatface", cursive;
+  background-color: var(--lavender);
+  border-radius: 25px 0 0 25px;
+  text-align: center;
+  padding-top: 1.2rem;
+}
+
+/* media query - small screens */
+@media (max-width: 575.98px) {
+  .container {
+    flex-direction: column;
+  }
+  h1.display-3 {
+    font-size: 3rem;
+  }
+  .time,
+  .save {
+    max-width: 4rem;
+  }
+}
